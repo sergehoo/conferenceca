@@ -1,0 +1,288 @@
+{% extends "ca/base_generic.html" %}
+{% load static  %}
+
+{% block body %} 
+<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+
+    <!-- BEGIN: Header-->
+    {% include "ca/navbarre.html" %}
+    <!-- END: Header-->
+
+
+    <!-- BEGIN: Main Menu-->
+    {% include "ca/menu_laterale.html" %}
+    <!-- END: Main Menu-->
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <!-- Dashboard Analytics Start -->
+                <section id="dashboard-analytics">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="card bg-analytics text-white">
+                                <div class="card-content">
+                                    <div class="card-body text-center">
+                                        <img src="{% static 'app-assets/images/elements/decore-left.png'%}" class="img-left" alt="
+            card-img-left">
+                                        <img src="{% static 'app-assets/images/elements/decore-right.png'%}" class="img-right" alt="
+            card-img-right">
+                                        <div class="avatar avatar-xl bg-primary shadow mt-0">
+                                            <div class="avatar-content">
+                                                <i class="feather icon-award white font-large-1"></i>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <h1 class="mb-2 text-white">Félicitation </h1>
+                                            {% for dona in dernier %}
+                                            <p class="m-auto w-75">Vous avez recu un nouveau don de <strong>{{ dona.montant| upper }}</strong> de la part de <strong>{{ dona.donateur| upper }}</strong>.</p>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-header d-flex flex-column align-items-start pb-0">
+                                    <div class="avatar bg-rgba-primary p-50 m-0">
+                                        <div class="avatar-content">
+                                            <i class="feather icon-users text-primary font-medium-5"></i>
+                                        </div>
+                                    </div>
+                                    <h2 class="text-bold-700 mt-1 mb-25">{{ dons.total_amount }}</h2>
+                                    <p class="mb-0">Dons recu</p>
+                                </div>
+                                <div class="card-content">
+                                    <div id="subscribe-gain-chart"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-header d-flex flex-column align-items-start pb-0">
+                                    <div class="avatar bg-rgba-warning p-50 m-0">
+                                        <div class="avatar-content">
+                                            <i class="feather icon-package text-warning font-medium-5"></i>
+                                        </div>
+                                    </div>
+                                    <h2 class="text-bold-700 mt-1 mb-25">{{ promesse.total_prom}}</h2>
+                                    <p class="mb-0">Promesses Enregistrés</p>
+                                </div>
+                                <div class="card-content">
+                                    <div id="orders-received-chart"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div class="row pb-50">
+                                            <div class="col-lg-6 col-12 d-flex justify-content-between flex-column order-lg-1 order-2 mt-lg-0 mt-2">
+                                                <div>
+                                                    <h2 class="text-bold-700 mb-25">140 </h2>
+                                                    <p class="text-bold-500 mb-75">dons effectués</p>
+                                                    <h5 class="font-medium-2">
+                                                        <span class="text-success">+5.2% </span>
+                                                        <span>vs last 7 days</span>
+                                                    </h5>
+                                                </div>
+                                                <a href="#" class="btn btn-primary shadow">voir les details<i class="feather icon-chevrons-right"></i></a>
+                                            </div>
+                                            <div class="col-lg-6 col-12 d-flex justify-content-between flex-column text-right order-lg-2 order-1">
+                                               
+                                                <div id="avg-session-chart"></div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row avg-sessions pt-50">
+                                            <div class="col-6">
+                                                <p class="mb-0">Objectif: CFA 60 000 000</p>
+                                                <div class="progress progress-bar-primary mt-25">
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="50" aria-valuemax="100" style="width:50%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="mb-0">Deja percu </p>
+                                                <div class="progress progress-bar-warning mt-25">
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="60" aria-valuemax="100" style="width:60%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="mb-0">Reste à recouvrir</p>
+                                                <div class="progress progress-bar-danger mt-25">
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="70" aria-valuemax="100" style="width:70%"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="mb-0">Delai de recouvrement</p>
+                                                <div class="progress progress-bar-success mt-25">
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="90" aria-valuemax="100" style="width:90%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between pb-0">
+                                    <h4 class="card-title">Ratios des Dons </h4>
+                                    
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body pt-0">
+                                        <div class="row">
+                                            <div class="col-sm-2 col-12 d-flex flex-column flex-wrap text-center">
+                                                <h1 class="font-large-2 text-bold-700 mt-2 mb-0">{{ dons.total_amount }}</h1>
+                                                <small>Deja Recu </small>
+                                            </div>
+                                            <div class="col-sm-10 col-12 d-flex justify-content-center">
+                                                <div id="support-tracker-chart"></div>
+                                            </div>
+                                        </div>
+                                        <div class="chart-info d-flex justify-content-between">
+                                            <div class="text-center">
+                                                <p class="mb-50">Objectif à Atteindre</p>
+                                                <span class="font-large-1">60 000 000</span>
+                                            </div>
+                                            <div class="text-center">
+                                                <p class="mb-50">Promesse de Dons</p>
+                                                <span class="font-large-1">{{ promesse.total_prom}}</span>
+                                            </div>
+                                            <div class="text-center">
+                                                <p class="mb-50">Delai de recouvrement </p>
+                                                <span class="font-large-1">Janvier 2022</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="mb-0">Les 07 Derniers dons recu</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="table-responsive mt-1">
+                                        
+                                            <table class="table data-list-view">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Donateur</th>
+                                                        <th>Montant</th>
+                                                        <th>Periode</th>
+                                                        <th>Date de paiement</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for dons in last_dons %}
+                                                     <tr>
+                                                        <td></td>
+                                                       
+                    
+                                                        <td class="product-category">{{ dons.donateur| upper   }} </td>
+                    
+
+                    
+                                                        <td class="product-name">
+                                                            <div class="chip chip-info">
+                                                                <div class="chip-body">
+                                                                    <div class="chip-text">{{ dons.montant }} CFA</div>
+                                                                </div>
+                                                            </div> 
+                                                        </td>
+                    
+                                                       
+                    
+                                                       
+                                                        
+                                                    
+                                                        <td>
+                                                            {{ dons.periode}} 2021
+                                                        </td>
+                    
+                                                        <td>
+                                                            <div class="chip chip-dark">
+                                                                <div class="chip-body">
+                                                                    <div class="chip-text">{{ dons.created_at|date:"D d M, Y |  H:i"  }}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        
+                                                        <td class="product-action">
+                                                            <a href="./donateur/{{ donateur.id }}"><span ><i class="feather icon-eye"></i></span></a>
+                                                            
+                                                            <span class="action-delete"><i class="feather icon-trash"></i></span>
+                                                        </td>
+                                                    </tr> 
+                                                    {% endfor%}
+                                                </tbody>
+                                                
+                                            </table>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Dashboard Analytics end -->
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+   
+ <!-- BEGIN: Footer-->
+<footer class="footer footer-static footer-light">
+    <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2019<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent,</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
+        <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
+    </p>
+</footer>
+<!-- END: Footer-->
+
+
+<!-- BEGIN: Vendor JS-->
+<script src="{% static 'app-assets/vendors/js/vendors.min.js'%}"></script>
+<!-- BEGIN Vendor JS-->
+
+<!-- BEGIN: Page Vendor JS-->
+<script src="{% static 'app-assets/vendors/js/charts/apexcharts.min.js'%}"></script>
+<script src="{% static 'app-assets/vendors/js/extensions/tether.min.js'%}"></script>
+<!--<script src="{% static 'app-assets/vendors/js/extensions/shepherd.min.js'%}"></script>
+<!-- END: Page Vendor JS-->
+
+<!-- BEGIN: Theme JS-->
+<script src="{% static 'app-assets/js/core/app-menu.js'%}"></script>
+<script src="{% static 'app-assets/js/core/app.js'%}"></script>
+<script src="{% static 'app-assets/js/scripts/components.js'%}"></script>
+<!-- END: Theme JS-->
+
+<!-- BEGIN: Page JS-->
+<script src="{% static 'app-assets/js/scripts/pages/dashboard-analytics.js'%}"></script>
+<!-- END: Page JS-->
+</body>
+
+{% endblock %}
+<!-- END: Body-->
+
